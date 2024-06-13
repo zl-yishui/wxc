@@ -3,7 +3,7 @@ import logging
 
 from django.http import JsonResponse
 from django.shortcuts import render
-from wxcloudrun.models import Counters
+from wxcloudrun.models import Counters, Xueye
 
 
 logger = logging.getLogger('log')
@@ -18,6 +18,27 @@ def index(request, _):
 
     return render(request, 'index.html')
 
+def xueye(request, _):
+    """
+    获取学业信息
+
+     `` request `` 请求对象
+    """
+
+    rsp = JsonResponse({'code': 0, 'errorMsg': ''}, json_dumps_params={'ensure_ascii': False})
+    if request.method == 'GET' or request.method == 'get':
+        try:
+            data = Xueye.objects.get(xueye_xueyuan_shenfen=371323198603210018)
+        except Xueye.DoesNotExist:
+            return JsonResponse({'code': 0, 'data': 0},
+                        json_dumps_params={'ensure_ascii': False})
+        return JsonResponse({'code': 0, 'data': data.xueye_xueyuan_name},
+                            json_dumps_params={'ensure_ascii': False})
+    else:
+        rsp = JsonResponse({'code': -1, 'errorMsg': '请求方式错误'},
+                            json_dumps_params={'ensure_ascii': False})
+    logger.info('response result: {}'.format(rsp.content.decode('utf-8')))
+    return rsp
 
 def counter(request, _):
     """

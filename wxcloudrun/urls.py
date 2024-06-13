@@ -18,6 +18,9 @@ from wxcloudrun import views
 from django.conf.urls import url
 
 urlpatterns = (
+    
+    # 学业接口
+    url(r'^^api/xueye(/)?$', views.xueye),
     # 计数器接口
     url(r'^^api/count(/)?$', views.counter),
 
