@@ -26,9 +26,13 @@ def xueye(request, _):
     """
 
     rsp = JsonResponse({'code': 0, 'errorMsg': ''}, json_dumps_params={'ensure_ascii': False})
+
+    name = request.GET.get('name')
+    shenfen = request.GET.get('shenfen')
+
     if request.method == 'GET' or request.method == 'get':
         try:
-            data = Xueye.objects.get(xueye_xueyuan_shenfen=371323198603210018)
+            data = Xueye.objects.filter(xueye_xueyuan_name = name, xueye_xueyuan_shenfen = shenfen)
         except Xueye.DoesNotExist:
             return JsonResponse({'code': 0, 'data': 0},
                         json_dumps_params={'ensure_ascii': False})
