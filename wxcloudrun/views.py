@@ -32,7 +32,7 @@ def xueye(request, _):
         except Xueye.DoesNotExist:
             return JsonResponse({'code': 0, 'data': 0},
                         json_dumps_params={'ensure_ascii': False})
-        return JsonResponse({'code': 0, 'data': data.xueye_xueyuan_name},
+        return JsonResponse({'code': 0, 'data': data},
                             json_dumps_params={'ensure_ascii': False})
     else:
         rsp = JsonResponse({'code': -1, 'errorMsg': '请求方式错误'},
