@@ -3,6 +3,7 @@ import logging
 
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.core import serializers
 from wxcloudrun.models import Counters, Xueye
 
 
@@ -33,6 +34,7 @@ def xueye(request, _):
     if request.method == 'GET' or request.method == 'get':
         try:
             data = Xueye.objects.filter(xueye_xueyuan_name = name, xueye_xueyuan_shenfen = shenfen)
+            data = serializers.serialize("json", data)
         except Xueye.DoesNotExist:
             return JsonResponse({'code': 0, 'data': 0},
                         json_dumps_params={'ensure_ascii': False})
