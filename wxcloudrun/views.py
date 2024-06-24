@@ -28,10 +28,12 @@ def xueye(request, _):
 
     rsp = JsonResponse({'code': 0, 'errorMsg': ''}, json_dumps_params={'ensure_ascii': False})
 
-    name = request.GET.get('name')
-    shenfen = request.GET.get('shenfen')
+    name = ''
+    shenfen = ''
 
-    if request.method == 'GET' or request.method == 'get':
+    if request.method == 'POST' or request.method == 'post':
+        name = request.POST.get('name', '')
+        shenfen = request.POST.get('shenfen', '')
         try:
             data = Xueye.objects.filter(xueye_xueyuan_name = name, xueye_xueyuan_shenfen = shenfen)
             data = serializers.serialize("json", data)
