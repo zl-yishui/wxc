@@ -32,8 +32,8 @@ def xueye(request, _):
     shenfen = ''
 
     if request.method == 'POST' or request.method == 'post':
-        name = request.POST.get('name', '')
-        shenfen = request.POST.get('shenfen', '')
+        name = request.POST.get('name', 0)
+        shenfen = request.POST.get('shenfen', 0)
         try:
             data = Xueye.objects.filter(xueye_xueyuan_name = name, xueye_xueyuan_shenfen = shenfen)
             data = serializers.serialize("json", data)
